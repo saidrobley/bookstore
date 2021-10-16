@@ -2,13 +2,27 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const { nanoid } = require('nanoid');
+const { getAllUsers, getUserById, createUser } = require('../db/user');
 
+// get all users
 router.get('/', async (req, res) => {
   try {
-    const results = await db.query('SELECT * FROM users');
-    //console.log(results);
+    const users = await getAllUsers();
     res.status(200).json({
-      users: results.rows,
+      users: users,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// get one user
+router.get('/:userId', async (req, res) => {
+  try {
+    const user = await getUserById(req.params.userId);
+    console.log('userId', user);
+    res.status(200).json({
+      user: user,
     });
   } catch (err) {
     console.log(err);
@@ -18,19 +32,9 @@ router.get('/', async (req, res) => {
 // create user
 router.post('/', async (req, res) => {
   try {
-    console.log(req.body);
-    const results = await db.query(
-      'INSERT INTO users (id, username, password, address, full_name) values($1, $2, $3, $4, $5) returning *',
-      [
-        req.body.id,
-        req.body.username,
-        req.body.password,
-        req.body.address,
-        req.body.full_name,
-      ]
-    );
-    res.status(201).json({
-      users: results.rows[0],
+    const user = createUser({ ...req.body });
+    res.status(200).json({
+      user: { ...req.body },
     });
   } catch (err) {
     console.log(err);
@@ -38,7 +42,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a user
-router.put('/:id', async (req, res) => {
+router.put('/:userId', async (req, res) => {
   try {
     const results = await db.query(
       'UPDATE users SET username = $1, password = $2, address = $3, full_name = $4 where id = $5 returning *',
