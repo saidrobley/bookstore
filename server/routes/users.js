@@ -2,7 +2,13 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const { nanoid } = require('nanoid');
-const { getAllUsers, getUserById, createUser } = require('../db/user');
+const {
+  getAllUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+} = require('../db/user');
 
 // get all users
 router.get('/', async (req, res) => {
@@ -43,30 +49,34 @@ router.post('/', async (req, res) => {
 
 // Update a user
 router.put('/:userId', async (req, res) => {
-  try {
-    const results = await db.query(
-      'UPDATE users SET username = $1, password = $2, address = $3, full_name = $4 where id = $5 returning *',
-      [
-        req.body.username,
-        req.body.password,
-        req.body.address,
-        req.body.full_name,
-        req.body.id,
-      ]
-    );
-    res.status(200).json({
-      user: results.rows[0],
+  if (req.body.id !== parseInt(req.params.userId)) {
+    res.status(400).json({
+      err: 'id mismatch',
     });
+    return;
+  }
+  try {
+    const user = await getUserById(req.params.userId);
+    const newUser = await updateUser({
+      id: parseInt(req.params.userId),
+      ...req.body,
+    });
+    res.status(200).json(newUser);
   } catch (err) {
     console.log(err);
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:userId', async (req, res) => {
   try {
-    const results = await db.query('DELETE FROM users where id = $1', [
-      req.params.id,
-    ]);
+    const user = await getUserById(req.params.userId);
+    if (!user) {
+      res.status(400).json({
+        err: 'No user found',
+      });
+      return;
+    }
+    await deleteUser(user);
     res.status(204).json({
       status: 'success',
     });
