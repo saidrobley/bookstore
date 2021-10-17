@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// get one user
+// get a user
 router.get('/:userId', async (req, res) => {
   try {
     const user = await getUserById(req.params.userId);
