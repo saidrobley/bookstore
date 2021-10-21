@@ -12,7 +12,7 @@ router.post('/register', async (req, res, next) => {
     const data = req.body;
     const response = await AuthServiceInstance.register(data);
     res.status(200).json({
-      user: response,
+      user: data,
     });
   } catch (err) {
     next(err);
@@ -26,10 +26,11 @@ router.post(
     try {
       const { username, password } = req.body;
       const response = await AuthServiceInstance.login({
-        username,
-        password,
+        email: username,
+        password: password,
       });
-      res.status(200).json({ user: response });
+      const { email, firstname, lastname } = response;
+      res.status(200).json({ user: { email, firstname, lastname } });
     } catch (err) {
       next(err);
     }

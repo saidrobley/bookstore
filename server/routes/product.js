@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
   try {
     const queryParams = req.query;
 
-    const response = await ProductServiceInstance.list(queryParams);
+    const response = await ProductServiceInstance.list();
     res.status(200).json({
       products: response,
     });
@@ -27,6 +27,22 @@ router.get('/:productId', async (req, res, next) => {
     });
   } catch (err) {
     next(err);
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const item = req.body;
+    console.log('item', item);
+    const response = await ProductServiceInstance.addItem(item);
+    if (response) {
+      console.log(response);
+      res.status(200).json({
+        product: response,
+      });
+    }
+  } catch (err) {
+    console.log(err);
   }
 });
 

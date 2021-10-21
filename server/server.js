@@ -51,9 +51,10 @@ passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       const user = await AuthServiceInstance.login({
-        username,
+        email: username,
         password,
       });
+
       return done(null, user);
     } catch (err) {
       return done(err);

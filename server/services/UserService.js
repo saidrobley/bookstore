@@ -9,7 +9,8 @@ module.exports = class UserService {
       const user = await UserModelInstance.getUserById(id);
       // if user doesn't exist, reject
       if (!user) {
-        throw createError(404, 'User record not found');
+        //throw createError(404, 'User record not found');
+        return { err: 'User record not found' };
       }
       return user;
     } catch (err) {

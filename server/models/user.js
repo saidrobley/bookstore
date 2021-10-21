@@ -1,15 +1,25 @@
 const db = require('../db/index');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports = class UserModel {
   // create a new user record.
   async createUser(user) {
     try {
-      const result = await db.query(
-        'INSERT INTO users (email, password, firstName, lastName) values($1, $2, $3, $4) returning *',
-        [user.email, user.password, user.firstName, user.lastName]
-      );
-      console.log('result', result.rows[0]);
-      return result.rows[0];
+      bcrypt.hash(user.password, saltRounds, async (err, hash) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const result = await db.query(
+            'INSERT INTO users (email, password, firstName, lastName) values($1, $2, $3, $4) returning *',
+            [user.email, hash, user.firstName, user.lastName]
+          );
+
+          if (result.rows?.length) {
+            return result.rows[0];
+          }
+        }
+      });
     } catch (err) {
       throw new Error(err);
     }
@@ -48,9 +58,13 @@ module.exports = class UserModel {
       const user = await db.query('SELECT * FROM users where email = $1', [
         email,
       ]);
-      return user.rows[0];
+
+      if (user.rows?.length) {
+        return user.rows[0];
+      }
     } catch (err) {
       throw new Error(err);
     }
   }
 };
+//select * from users;
