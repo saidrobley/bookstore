@@ -4,6 +4,7 @@ const session = require('express-session');
 const cors = require('cors');
 const usersRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
+const productRoute = require('./routes/product');
 const app = express();
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -62,6 +63,7 @@ passport.use(
 
 app.use('/users', usersRoute);
 app.use('/auth', authRoute);
+app.use('/products', productRoute);
 const port = process.env.PORT || 3004;
 
 app.listen(port, () => {
