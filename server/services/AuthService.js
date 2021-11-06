@@ -31,7 +31,9 @@ module.exports = class AuthService {
       if (match) {
         return user;
       }
+      //return 'Incorrect username or password';
       throw createError(401, 'Incorrect usernameee or password');
+
       // bcrypt.compare(password, user.password).then((result) => {
       //   throw createError(401, 'Incorrect usernameee or password');
       // });
@@ -39,7 +41,9 @@ module.exports = class AuthService {
       //   throw createError(401, 'Incorrect username or password');
       // }
     } catch (err) {
-      throw createError(500, err);
+      console.log('inside catch');
+      //throw createError(500, err);
+      throw err;
     }
   }
 };

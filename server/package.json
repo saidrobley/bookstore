@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon server.js --ignore '../client/'",
     "create-db": "node -r dotenv/config setupDatabase"
   },
   "author": "",
@@ -17,11 +17,13 @@
     "express-flash": "0.0.2",
     "express-session": "^1.17.2",
     "http-errors": "^1.8.0",
+    "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "nanoid": "^3.1.29",
     "nodemon": "^2.0.13",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "stripe": "^8.184.0"
   }
 }

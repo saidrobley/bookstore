@@ -39,7 +39,7 @@ module.exports = class UserService {
       if (user) {
         throw createError(404, 'cannot create the user');
       } else {
-        const createdUser = UserModelInstance.createUser(data);
+        const createdUser = await UserModelInstance.createUser(data);
         return createdUser;
       }
     } catch (err) {

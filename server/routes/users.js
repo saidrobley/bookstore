@@ -9,7 +9,11 @@ router.get('/:userId', async (req, res, next) => {
   try {
     const { userId } = req.params;
     const response = await UserServiceInstance.get({ id: userId });
-    res.status(200).send(response);
+    const { email, firstname, lastname, address1, address2, date_joined } =
+      response;
+    res
+      .status(200)
+      .json({ email, firstname, lastname, address1, address2, date_joined });
   } catch (err) {
     next(err);
   }

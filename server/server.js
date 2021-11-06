@@ -2,9 +2,13 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
+
 const usersRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const productRoute = require('./routes/product');
+const orderRoute = require('./routes/order');
+const cartRoute = require('./routes/cart');
+
 const app = express();
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -38,7 +42,9 @@ app.use(passport.session());
 
 // Set method to serialize data to store in cookie
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  //console.log(user);
+  //done(null, user.id);
+  done(null, user);
 });
 
 // Set method to deserialize data stored in cookie and attach to req.user
@@ -50,13 +56,15 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
+      //console.log('username...', username.toLowerCase());
       const user = await AuthServiceInstance.login({
-        email: username,
+        email: username.toLowerCase(),
         password,
       });
-
+      // console.log('user.......', user);
       return done(null, user);
     } catch (err) {
+      console.log('err...', err);
       return done(err);
     }
   })
@@ -65,6 +73,9 @@ passport.use(
 app.use('/users', usersRoute);
 app.use('/auth', authRoute);
 app.use('/products', productRoute);
+app.use('/orders', orderRoute);
+app.use('/carts', cartRoute);
+
 const port = process.env.PORT || 3004;
 
 app.listen(port, () => {

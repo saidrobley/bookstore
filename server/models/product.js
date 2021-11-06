@@ -18,20 +18,12 @@ module.exports = class ProductModel {
       throw err;
     }
   }
-  // const result = await db.query(
-  //             'INSERT INTO users (email, password, firstName, lastName) values($1, $2, $3, $4) returning *',
-  //             [user.email, hash, user.firstName, user.lastName]
-  //           );
-  // id              INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-  //       name            VARCHAR(50)     NOT NULL,
-  //       price           BIGINT          NOT NULL,
-  //       description     VARCHAR(50)     NOT NULL
 
   async addItem(item) {
     try {
       const result = await db.query(
-        'INSERT INTO products (name, price, description) values($1, $2, $3) returning *',
-        [item.name, item.price, item.description]
+        'INSERT INTO products (name, price, description, image_url) values($1, $2, $3, $4) returning *',
+        [item.name, item.price, item.description, item.image_url]
       );
       if (result.rows?.length) {
         return result.rows[0];
@@ -48,10 +40,12 @@ module.exports = class ProductModel {
    */
   async findOne(id) {
     try {
-      const statement = `SELECT * FROM product WHERE id = $1`;
-
-      const user = await db.query('SELECT * FROM products where id = $1', [id]);
-      return user.rows[0];
+      const result = await db.query(`SELECT * FROM products WHERE id = $1`, [
+        id,
+      ]);
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
     } catch (err) {
       throw err;
     }

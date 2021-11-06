@@ -3,7 +3,8 @@ const ProductModel = require('../models/product');
 const ProductModelInstance = new ProductModel();
 
 module.exports = class ProductService {
-  async list() {
+  // all items.
+  async getAllProducts() {
     try {
       //const products = await ProductModelInstance.find(options);
       const products = await ProductModelInstance.find();
@@ -13,7 +14,8 @@ module.exports = class ProductService {
     }
   }
 
-  async get(id) {
+  // retrieves product
+  async getProductById(id) {
     try {
       const product = await ProductModelInstance.findOne(id);
 
@@ -26,6 +28,7 @@ module.exports = class ProductService {
       throw err;
     }
   }
+  // adds product to db
   async addItem(data) {
     try {
       return await ProductModelInstance.addItem(data);

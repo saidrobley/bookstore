@@ -11,8 +11,17 @@ module.exports = class UserModel {
           console.log(err);
         } else {
           const result = await db.query(
-            'INSERT INTO users (email, password, firstName, lastName) values($1, $2, $3, $4) returning *',
-            [user.email, hash, user.firstName, user.lastName]
+            `INSERT INTO users 
+                (email, password, firstName, lastName, address1, address2) 
+                values($1, $2, $3, $4, $5, $6) returning *`,
+            [
+              user.email,
+              hash,
+              user.firstName,
+              user.lastName,
+              user.address1,
+              user.address2,
+            ]
           );
 
           if (result.rows?.length) {

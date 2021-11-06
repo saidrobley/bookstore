@@ -3,15 +3,17 @@ const router = express.Router();
 
 const ProductService = require('../services/ProductService');
 const ProductServiceInstance = new ProductService();
+const checkAuthentication = require('../services/checkAuthentication');
 
 router.get('/', async (req, res, next) => {
   try {
-    const queryParams = req.query;
-
-    const response = await ProductServiceInstance.list();
+    //const queryParams = req.query;
+    const response = await ProductServiceInstance.getAllProducts();
     res.status(200).json({
       products: response,
     });
+    //}
+    // res.json({ products: { err: 'Please login!!!' } });
   } catch (err) {
     next(err);
   }
@@ -21,7 +23,7 @@ router.get('/:productId', async (req, res, next) => {
   try {
     const { productId } = req.params;
 
-    const response = await ProductServiceInstance.get(productId);
+    const response = await ProductServiceInstance.getProductById(productId);
     res.status(200).json({
       product: response,
     });
