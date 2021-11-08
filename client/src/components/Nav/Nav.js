@@ -67,6 +67,14 @@ const Nav = (props) => {
             </Link>
           )}
         </ListItem>
+
+        <ListItem>
+          {!props.user.email && (
+            <Link style={{ textDecoration: 'none' }} to="/account/register">
+              Register
+            </Link>
+          )}
+        </ListItem>
       </UnorderedList>
     </Navigation>
   );
