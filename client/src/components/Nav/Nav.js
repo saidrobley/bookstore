@@ -20,6 +20,7 @@ const Nav = (props) => {
         firstname: foundUser.firstname,
         lastname: foundUser.lastname,
       });
+      <Redirect to="/" />;
     }
   }, [user.email]);
 

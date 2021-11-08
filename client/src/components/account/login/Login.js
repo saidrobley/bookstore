@@ -26,6 +26,7 @@ const Login = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = { username, password };
+    console.log('user inside regist react', user);
     props.loginUser(user);
   };
 

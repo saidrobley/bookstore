@@ -12,24 +12,37 @@ const AuthServiceInstance = new AuthService();
 router.post('/register', async (req, res, next) => {
   try {
     const data = req.body;
+    console.log('inside register route', data);
+    //const pswd = data.password;
     const response = await AuthServiceInstance.register(data);
+    console.log('inside post register after response', response);
+    //return await AuthServiceInstance.register(data);
+    //console.log('inside register rout response', response);
+
     res.status(200).json({
       user: data,
     });
+    // res.status(200).json({
+    //   user: response,
+    // });
   } catch (err) {
     next(err);
   }
 });
-
+// router.post('/login', (req, res) => {
+//   const user = req.body;
+//   console.log('inside login ', user);
+// });
 router.post(
   '/login',
   passport.authenticate('local'),
   async (req, res, next) => {
     try {
       const { username, password } = req.body;
-
+      console.log('username', username);
+      console.log('password', password);
       const response = await AuthServiceInstance.login({
-        email: username.toLowerCase(),
+        email: username,
         password: password,
       });
       const { email, firstname, lastname } = response;
