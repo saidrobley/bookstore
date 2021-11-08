@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link, useHistory, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 const Nav = (props) => {
   const [user, setUser] = useState({
@@ -12,9 +12,8 @@ const Nav = (props) => {
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
-      console.log('logged in user', loggedInUser);
       const foundUser = JSON.parse(loggedInUser);
-      console.log('found user ', foundUser);
+
       setUser({
         email: foundUser.email,
         firstname: foundUser.firstname,
@@ -89,15 +88,13 @@ const Navigation = styled.div`
   color: white;
   text-transform: uppercase;
   font-weight: 600;
+
+  height: 58px;
+  border-radius: 4px;
+  border: 1px solid black;
+  margin-bottom: 2rem;
 `;
-// export const Wrap = styled.div`
-//   background-color: red;
-//   margin: auto;
-//   width: 90%;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-// `;
+
 const Logo = styled.div``;
 const LogoButton = styled.button`
   padding: 0.5rem 2rem;

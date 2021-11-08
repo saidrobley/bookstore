@@ -14,15 +14,16 @@ import {
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import ProductForm from './components/products/ProductForm';
 
 function App() {
   let history = useHistory();
   const [user, setUser] = useState({ email: '', firstname: '', lastname: '' });
-  if (user.email) {
-    <Redirect push to="/" />;
-  }
+  const [err, setErr] = useState({ message: '' });
+
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user');
+
     if (loggedInUser) {
       console.log('logged in user in app', loggedInUser);
       const foundUser = JSON.parse(loggedInUser);
@@ -55,22 +56,38 @@ function App() {
 
     loginUser(user);
   };
+
   const loginUser = async (userData) => {
     console.log('inside loginUser in the App', userData);
-    const response = await axios.post('/auth/login', userData);
-    console.log('response inside login', response.data);
-    // set the state of the user
-    if (response) {
-      setUser({
-        email: response.data.email,
-        firstname: response.data.firstname,
-        lastname: response.data.lastname,
-      });
-      console.log('user', user);
-      console.log('response data', response.data);
-      localStorage.setItem('user', JSON.stringify(response.data));
-      console.log(response.data);
-      <Redirect push to="/" />;
+    try {
+      const response = await axios.post('/auth/login', userData);
+      console.log('response inside login', response.data);
+      // set the state of the user
+      if (response.data.err) {
+        localStorage.clear();
+        console.log('insidedddd');
+        console.log(response.data.err);
+        setErr({
+          message: response.data.err,
+        });
+        history.push('/');
+      } else {
+        setErr({});
+        setUser({
+          email: response.data.email,
+          firstname: response.data.firstname,
+          lastname: response.data.lastname,
+        });
+        console.log('user', user);
+        console.log('response data', response.data);
+        localStorage.setItem('user', JSON.stringify(response.data));
+        console.log(response.data);
+        console.log(response);
+        <Redirect push to="/" />;
+      }
+    } catch (err) {
+      console.log('inside catch');
+      console.log(err);
     }
   };
 
@@ -79,7 +96,8 @@ function App() {
       <Router>
         <Nav logoutUser={logoutUser} user={user} />
         <Switch>
-          <Route path="/" exact component={Products} />
+          <Route path="/" exact component={() => <Products user={user} />} />
+          <Route path="/product/add" exact component={ProductForm} />
           <Route
             path="/account/login"
             exact
@@ -96,6 +114,9 @@ function App() {
           )}
         </Switch>
       </Router>
+      {err && (
+        <h1 style={{ textAlign: 'center', color: 'red' }}>{err.message}</h1>
+      )}
     </Wrap>
   );
 }
@@ -103,7 +124,6 @@ function App() {
 export default App;
 
 export const Wrap = styled.div`
-  background-color: red;
   margin: auto;
   width: 90%;
 `;

@@ -49,8 +49,9 @@ module.exports = class AuthService {
       if (match) {
         return user;
       }
+      return 'Incorrect username or password';
       //return 'Incorrect username or password';
-      throw createError(401, 'Incorrect usernameee or password');
+      //throw createError(401, 'Incorrect usernameee or password');
     } catch (err) {
       console.log('inside catch');
       //throw createError(500, err);

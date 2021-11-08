@@ -1,6 +1,5 @@
 import React from 'react';
-import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import styled from 'styled-components';
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -18,14 +17,10 @@ class Register extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    console.log('before change to lower case');
-    console.log(this.state);
     this.setState({
       email: this.state.email.toLowerCase(),
     });
 
-    console.log(this.state);
-    console.log('after to lower case');
     const userData = {
       email: this.state.email.toLowerCase(),
       password: this.state.password,
@@ -45,28 +40,6 @@ class Register extends React.Component {
     console.log('user from register react:', userData);
     console.log('state..', this.state);
     return this.props.registerUser(userData);
-
-    // const response = await axios.post('/auth/register', userData);
-    // console.log('response', response.data.user);
-    // const { email, password } = response.data.user;
-    // const loginUser = {
-    //   email,
-    //   password,
-    // };
-    // console.log('loginUser', loginUser);
-    // return <Redirect to="/" />;
-    //this.props.loginUser(loginUser);
-    //this.setState((prevState) => {});
-
-    // const email = response.data.user.email;
-    // const password = response.data.user.password;
-    // const user = {
-    //   username: email,
-    //   password: password,
-    // };
-    // console.log('username, password', user.username, user.password);
-    // console.log('user:...', user);
-    // await this.props.loginUser(user);
   }
   handleChange(e) {
     this.setState({
@@ -76,75 +49,133 @@ class Register extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h1>Signin</h1>
+      <Form onSubmit={this.handleSubmit}>
+        <h1>Register</h1>
         <div className="email">
-          <span>email:</span>
+          <label>email:</label>
           <input
             type="email"
             name="email"
+            placeholder="Email"
+            required="true"
             value={this.state.email}
             onChange={this.handleChange}
-            //onChange={({ target }) => this.setState({ email: target.value })}
           />
         </div>
         <div className="password">
-          <span>password:</span>{' '}
+          <label>password:</label>
           <input
             type="password"
             name="password"
+            placeholder="Password"
+            required="true"
             value={this.state.password}
             onChange={this.handleChange}
-            //onChange={({ target }) => this.setState({ password: target.value })}
           />
         </div>
         <div>
-          <span>First Name:</span>{' '}
+          <label>First Name:</label>
           <input
             type="text"
             name="firstName"
+            placeholder="First Name"
+            required="true"
             value={this.state.firstName}
             onChange={this.handleChange}
-            // onChange={({ target }) =>
-            //    this.setState({ firstName: target.value })
-            // }
           />
         </div>
 
         <div>
-          <span>Last Name:</span>{' '}
+          <label>Last Name:</label>
           <input
             type="text"
             name="lastName"
+            placeholder="Last Name"
+            required="true"
             value={this.state.lastName}
             onChange={this.handleChange}
           />
         </div>
         <div>
-          <span>address1:</span>{' '}
+          <label>address1:</label>
           <input
             type="text"
             name="address1"
+            placeholder="Address1"
+            required="true"
             value={this.state.address1}
             onChange={this.handleChange}
           />
         </div>
         <div>
-          <span>address2:</span>{' '}
+          <label>address2:</label>
           <input
             type="text"
             name="address2"
+            placeholder="Address2"
+            required="true"
             value={this.state.address2}
             onChange={this.handleChange}
           />
         </div>
 
         <div className="submit">
-          <button type="submit">Register</button>
+          {/* <button type="submit">Register</button> */}
+          <input type="submit" name="submit" value="Submit" />
         </div>
-      </form>
+      </Form>
     );
   }
 }
 
 export default Register;
+
+const Form = styled.form`
+  box-sizing: border-box;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 2rem;
+  h1 {
+    text-align: center;
+    text-transform: uppercase;
+  }
+  input[type='text'] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-readius: 4px;
+    resize: vertical;
+  }
+  input[type='email'] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-readius: 4px;
+    resize: vertical;
+  }
+  input[type='password'] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-readius: 4px;
+    resize: vertical;
+  }
+  input[type='submit'] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-readius: 4px;
+    resize: vertical;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background: #2ea823;
+    cursor: pointer;
+    color: white;
+    text-transform: uppercase;
+  }
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+`;

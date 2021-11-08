@@ -12,6 +12,7 @@ const AuthServiceInstance = new AuthService();
 router.post('/register', async (req, res, next) => {
   try {
     const data = req.body;
+
     console.log('inside register route', data);
     //const pswd = data.password;
     const response = await AuthServiceInstance.register(data);
@@ -45,16 +46,17 @@ router.post(
         email: username,
         password: password,
       });
+      console.log('response????', response);
       const { email, firstname, lastname } = response;
       console.log('....', response);
       if (email && firstname && lastname) {
         res.status(200).json({ email, firstname, lastname });
       } else {
-        console.log('response...', response);
-        //  res.send({ response });
+        //   //console.log('response...', response);
+        res.send({ err: response });
       }
     } catch (err) {
-      console.log('error:', err.message);
+      //console.log('error:', err.message);
       next(err);
     }
   }
