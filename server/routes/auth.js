@@ -12,51 +12,32 @@ const AuthServiceInstance = new AuthService();
 router.post('/register', async (req, res, next) => {
   try {
     const data = req.body;
-
-    console.log('inside register route', data);
-    //const pswd = data.password;
     const response = await AuthServiceInstance.register(data);
-    console.log('inside post register after response', response);
-    //return await AuthServiceInstance.register(data);
-    //console.log('inside register rout response', response);
-
-    res.status(200).json({
-      user: data,
-    });
-    // res.status(200).json({
-    //   user: response,
-    // });
+    res.status(200).json(response);
   } catch (err) {
     next(err);
   }
 });
-// router.post('/login', (req, res) => {
-//   const user = req.body;
-//   console.log('inside login ', user);
-// });
+
 router.post(
   '/login',
   passport.authenticate('local'),
   async (req, res, next) => {
     try {
       const { username, password } = req.body;
-      console.log('username', username);
-      console.log('password', password);
+
       const response = await AuthServiceInstance.login({
         email: username,
         password: password,
       });
-      console.log('response????', response);
+
       const { email, firstname, lastname } = response;
-      console.log('....', response);
       if (email && firstname && lastname) {
         res.status(200).json({ email, firstname, lastname });
       } else {
-        //   //console.log('response...', response);
         res.send({ err: response });
       }
     } catch (err) {
-      //console.log('error:', err.message);
       next(err);
     }
   }
@@ -71,16 +52,13 @@ const checkAuthentication = async (req, res, next) => {
 };
 
 router.get('/logout', async (req, res) => {
-  console.log('inside logout');
   req.logout();
-  //console.log('inside');
+
   res.status(200).json({ message: 'user successfully logout!' });
 });
 
 router.get('/secret', checkAuthentication, async (req, res) => {
-  console.log('inside secret route', req.user);
   if (req.user) {
-    console.log('id...', req.user.id);
     const user = await userModelInstance.getUserById(req.user.id.id);
     res.send(user);
   } else {

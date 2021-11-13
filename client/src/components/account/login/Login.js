@@ -8,6 +8,7 @@ import styled from 'styled-components';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [err, setError] = useState('');
 
   const dispatch = useDispatch();
   let history = useHistory();
@@ -18,9 +19,14 @@ const Login = () => {
 
     try {
       const response = await axios.post('/auth/login', userData);
-      console.log(response.data);
-      dispatch(update(response.data));
-      history.push('/');
+      if (response.data.email) {
+        console.log(response.data);
+        dispatch(update(response.data));
+        history.push('/');
+      } else {
+        console.log('err', response.data.err);
+        setError(response.data.err);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -58,6 +64,7 @@ const Login = () => {
           <input type="submit" name="submit" value="Submit" />
         </div>
       </div>
+      {err && <p style={{ color: 'red' }}>{err}</p>}
     </Form>
   );
 };
@@ -86,6 +93,7 @@ const Form = styled.form`
     margin-top: 2rem;
     margin-bottom: 2rem;
     background: #2ea823;
+    background: teal;
     cursor: pointer;
     color: white;
     text-transform: uppercase;
