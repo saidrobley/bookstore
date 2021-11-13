@@ -1,36 +1,29 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { update } from '../../../redux/userSlice';
 import axios from 'axios';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Login = (props) => {
-  let history = useHistory();
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState();
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('user');
-
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      console.log('logged in user', loggedInUser);
-
-      setUser({
-        email: foundUser.email,
-      });
-      console.log('foundUser....', foundUser);
-      console.log('after setUser', user);
-      history.push('/');
-    }
-  }, []);
+  const dispatch = useDispatch();
+  let history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = { username, password };
-    console.log('user inside login react', user);
-    props.loginUser(user);
+    const userData = { username, password };
+
+    try {
+      const response = await axios.post('/auth/login', userData);
+      console.log(response.data);
+      dispatch(update(response.data));
+      history.push('/');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -42,7 +35,7 @@ const Login = (props) => {
           type="email"
           name="username"
           placeholder="email"
-          required="true"
+          required
           value={username}
           onChange={({ target }) => setUsername(target.value)}
         />
@@ -53,7 +46,7 @@ const Login = (props) => {
           type="password"
           name="password"
           placeholder="Password"
-          required="true"
+          required
           value={password}
           onChange={({ target }) => setPassword(target.value)}
         />

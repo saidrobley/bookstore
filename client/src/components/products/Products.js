@@ -1,36 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-//import Wrap from '../Nav/Nav';
 
-import styled from 'styled-components';
+import axios from 'axios';
 
 function Products(props) {
   const [products, setProducts] = useState([]);
-  const [email, setEmail] = useState('');
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('user');
-    if (loggedInUser) {
-      console.log('logged in user', loggedInUser);
-      const foundUser = JSON.parse(loggedInUser);
 
-      //setUser(foundUser);
-    }
-  }, []);
   useEffect(() => {
     fetchProducts();
-    setEmail(props.email);
-  }, [props.email]);
+  }, []);
 
   const fetchProducts = async () => {
-    axios
-      .get('/products')
-      .then((res) => setProducts(res.data.products))
-      .catch((err) => console.log(err));
+    try {
+      const response = await axios.get('/products');
+      setProducts(response.data.products);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div>
       <h1>Products</h1>
+
       <div className="product-list">
         {products &&
           products.map((product) => {

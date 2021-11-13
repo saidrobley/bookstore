@@ -1,16 +1,19 @@
-// import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { update } from '../../../redux/userSlice';
 
-// function Logout(props) {
-//   // props.logout();
-//   useEffect(() => {
-//     props.logout();
-//   }, []);
+const Logout = () => {
+  const dispatch = useDispatch();
+  let history = useHistory();
 
-//   return (
-//     <div>
-//       <h1>logout</h1>
-//     </div>
-//   );
-// }
+  dispatch(update({ email: '', firstname: '', lastname: '' }));
+  history.push('/');
 
-// export default Logout;
+  return (
+    <div>
+      <h1>Logout</h1>
+    </div>
+  );
+};
+
+export default Logout;
