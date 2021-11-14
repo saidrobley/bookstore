@@ -3,6 +3,7 @@ import Login from './components/account/login/Login';
 import Logout from './components/account/logout/Logout';
 import Register from './components/account/register/Register';
 import { useSelector } from 'react-redux';
+import Product from './pages/Product';
 
 import {
   BrowserRouter as Router,
@@ -29,6 +30,9 @@ const App = () => {
         </Route>
         <Route path="/account/logout">
           <Logout />
+        </Route>
+        <Route path="/products/:id">
+          <Product />
         </Route>
       </Switch>
     </Router>

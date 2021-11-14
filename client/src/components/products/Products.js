@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import styled from 'styled-components';
 import axios from 'axios';
+import Product from './Product';
 
 function Products(props) {
   const [products, setProducts] = useState([]);
@@ -19,26 +20,30 @@ function Products(props) {
   };
 
   return (
-    <div>
+    <Wrapper>
       <h1>Products</h1>
-
-      <div className="product-list">
+      <Container>
         {products &&
           products.map((product) => {
-            return (
-              <div className="product-item" key={product.id}>
-                <p>{product.name}</p>
-
-                <img alt={product.name} src={product.image_url} />
-
-                <p>{product.description}</p>
-                <p>${product.price}</p>
-              </div>
-            );
+            return <Product product={product} key={product.id} />;
           })}
-      </div>
-    </div>
+      </Container>
+    </Wrapper>
   );
 }
 
 export default Products;
+const Container = styled.div`
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const Wrapper = styled.div`
+  padding: 10px 20px;
+  text-align: center;
+`;
+const ProductItem = styled.div`
+  flex: 2;
+`;

@@ -73,7 +73,7 @@ const Container = styled.div`
   margin-bottom: 2rem;
 `;
 const Wrapper = styled.div`
-  padding: 12px 20px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -82,6 +82,9 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 const Logo = styled.p`
   font-weight: bold;
@@ -96,12 +99,18 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  @media (max-width: 768px) {
+    justify-content: space-between;
+  }
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 35px;
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
   a {
     color: white;
     text-transform: uppercase;
