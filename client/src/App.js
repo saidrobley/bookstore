@@ -12,6 +12,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import React from 'react';
+import Cart from './pages/Cart';
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -33,6 +34,9 @@ const App = () => {
         </Route>
         <Route path="/products/:id">
           <Product />
+        </Route>
+        <Route path="/cart">
+          <Cart />
         </Route>
       </Switch>
     </Router>

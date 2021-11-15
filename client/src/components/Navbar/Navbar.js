@@ -2,12 +2,14 @@ import React from 'react';
 import { Badge } from '@material-ui/core';
 import { ShoppingCartOutlined } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { update } from '../../redux/userSlice';
+import { update } from '../../redux/userRedux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const quantity = useSelector((state) => state.cart.quantity);
+  console.log(quantity);
   const user = useSelector((state) => state.user);
   console.log('user from nav', user);
 
@@ -55,11 +57,13 @@ const Navbar = () => {
               </Link>
             )}
           </MenuItem>
-          <MenuItem>
-            <Badge badgeContent={4}>
-              <ShoppingCartOutlined />
-            </Badge>
-          </MenuItem>
+          <Link to="/cart">
+            <MenuItem>
+              <Badge badgeContent={quantity}>
+                <ShoppingCartOutlined />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>

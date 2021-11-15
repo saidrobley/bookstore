@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { update } from '../../../redux/userSlice';
+import { update } from '../../../redux/userRedux';
 
 const Logout = () => {
   const dispatch = useDispatch();

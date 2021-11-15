@@ -41,7 +41,8 @@ module.exports = class AuthService {
       const user = await UserModelInstance.getUserByEmail(email);
 
       if (!user) {
-        throw createError(401, 'Incorrect username or password');
+        console.log('inside the !user');
+        return 'Incorrect username or password';
       }
 
       const match = await bcrypt.compare(password, user.password);
@@ -50,11 +51,9 @@ module.exports = class AuthService {
         return user;
       }
       return 'Incorrect username or password';
-      //return 'Incorrect username or password';
-      //throw createError(401, 'Incorrect usernameee or password');
     } catch (err) {
       console.log('inside catch');
-      //throw createError(500, err);
+
       throw err;
     }
   }

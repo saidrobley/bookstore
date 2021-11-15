@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { update } from '../../../redux/userSlice';
+import { update } from '../../../redux/userRedux';
 import { useHistory } from 'react-router-dom';
+import Navbar from '../../Navbar/Navbar';
 
 const Register = () => {
   let history = useHistory();
@@ -41,81 +42,84 @@ const Register = () => {
     // set the store
   };
   return (
-    <Form onSubmit={handleSubmit}>
-      <h1>Register</h1>
-      <div className="email">
-        <label>email:</label>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-          value={user.email}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="password">
-        <label>password:</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-          value={user.password}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>First Name:</label>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          required
-          value={user.firstName}
-          onChange={handleChange}
-        />
-      </div>
+    <div>
+      <Navbar />
+      <Form onSubmit={handleSubmit}>
+        <h1>Register</h1>
+        <div className="email">
+          <label>email:</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+            value={user.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="password">
+          <label>password:</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            value={user.password}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>First Name:</label>
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            required
+            value={user.firstName}
+            onChange={handleChange}
+          />
+        </div>
 
-      <div>
-        <label>Last Name:</label>
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          required
-          value={user.lastName}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>address1:</label>
-        <input
-          type="text"
-          name="address1"
-          placeholder="Address1"
-          required
-          value={user.address1}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>address2:</label>
-        <input
-          type="text"
-          name="address2"
-          placeholder="Address2"
-          required
-          value={user.address2}
-          onChange={handleChange}
-        />
-      </div>
+        <div>
+          <label>Last Name:</label>
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            required
+            value={user.lastName}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>address1:</label>
+          <input
+            type="text"
+            name="address1"
+            placeholder="Address1"
+            required
+            value={user.address1}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>address2:</label>
+          <input
+            type="text"
+            name="address2"
+            placeholder="Address2"
+            required
+            value={user.address2}
+            onChange={handleChange}
+          />
+        </div>
 
-      <div className="submit">
-        {/* <button type="submit">Register</button> */}
-        <input type="submit" name="submit" value="Submit" />
-      </div>
-    </Form>
+        <div className="submit">
+          {/* <button type="submit">Register</button> */}
+          <input type="submit" name="submit" value="Submit" />
+        </div>
+      </Form>
+    </div>
   );
 };
 
@@ -159,6 +163,7 @@ const Form = styled.form`
     margin-top: 2rem;
     margin-bottom: 2rem;
     background: #2ea823;
+    background: teal;
     cursor: pointer;
     color: white;
     text-transform: uppercase;
