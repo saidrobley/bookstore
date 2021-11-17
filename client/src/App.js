@@ -13,6 +13,7 @@ import {
 } from 'react-router-dom';
 import React from 'react';
 import Cart from './pages/Cart';
+import Success from './pages/Success';
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -37,6 +38,9 @@ const App = () => {
         </Route>
         <Route path="/cart">
           <Cart />
+        </Route>
+        <Route path="/success">
+          <Success />
         </Route>
       </Switch>
     </Router>

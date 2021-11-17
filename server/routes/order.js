@@ -14,6 +14,20 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.post('/', async (req, res) => {
+  const newOrder = req.body;
+  console.log('new Order ', newOrder);
+  try {
+    // const newOrder = await req.body;
+    // res.status(200).json(newOrder);
+    const response = await OrderServiceInstance.createOrder(newOrder);
+    console.log('response in route order', response);
+    res.status(200).json(response);
+  } catch (err) {
+    console.log(err);
+  }
+});
 /*
       total           DECIMAL(10,2)   NOT NULL,
       status          VARCHAR(50)     NOT NULL,

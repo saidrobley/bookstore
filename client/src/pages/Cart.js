@@ -1,12 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar/Navbar';
 import { Add, Remove } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useHistory } from 'react-router';
+import StripeCheckout from 'react-stripe-checkout';
 
 const Cart = () => {
+  const KEY = process.env.REACT_APP_STRIPE;
+  const history = useHistory();
   const cart = useSelector((state) => state.cart);
-  console.log('cart', cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await axios.post('/checkout/payment', {
+          //const res = await axios.post('/self/checkout', {
+          tokenId: stripeToken.id,
+          amount: 500,
+        });
+        history.push('/success', {
+          stripeData: res.data,
+          products: cart,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken, cart.total, history]);
   return (
     <Container>
       <Navbar />
@@ -68,7 +94,18 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="Arabsiyo Shop"
+              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>
@@ -214,4 +251,5 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;

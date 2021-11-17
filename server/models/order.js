@@ -7,16 +7,19 @@ const CartItemModel = require('./cartItem');
 
 module.exports = class OrderModel {
   constructor(data = {}) {
+    this.userId = data.userId || null;
+    this.items = data.products || [];
+    //this.productId = data.productId;
+    //this.items = this.addItems(data.items) || [];
+    this.total = data.total || 0;
+
     this.created = data.created || moment.utc().toISOString();
-    this.items = data.items || [];
     this.modified = moment.utc().toISOString();
     this.status = data.status || 'PENDING';
-    this.total = data.total || 0;
-    this.userId = data.userId || null;
   }
 
   async addItems(items) {
-    //console.log('items,,,,,,: ', items);
+    console.log('items,,,,,,: ', items);
     this.items = await items.map((item) => new OrderItem(item));
     //this.items = await items.map((item) => new CartItemModel(item));
     console.log('end of addItems');
@@ -25,11 +28,22 @@ module.exports = class OrderModel {
   // create order
   async create() {
     console.log('inside create');
+    console.log('this', this);
+    const data = { ...this };
+    console.log('data', data);
+    console.log('data items:', data.items);
     try {
       const result = await db.query(
-        `INSERT INTO orders (created, modified, status, total, userId)
-        VALUES($1, $2, $3, $4, $5) RETURNING *`,
-        [this.created, this.modified, this.status, this.total, this.userId]
+        `INSERT INTO orders (created, modified, status, total, userId, items)
+        VALUES($1, $2, $3, $4, $5, $6) RETURNING *`,
+        [
+          data.created,
+          data.modified,
+          data.status,
+          data.total,
+          data.userId,
+          data.items,
+        ]
       );
       if (result.rows?.length) {
         return result.rows[0];

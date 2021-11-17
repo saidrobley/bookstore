@@ -31,9 +31,9 @@ router.post(
         password: password,
       });
 
-      const { email, firstname, lastname } = response;
-      if (email && firstname && lastname) {
-        res.status(200).json({ email, firstname, lastname });
+      const { id, email, firstname, lastname } = response;
+      if (id && email && firstname && lastname) {
+        res.status(200).json({ id, email, firstname, lastname });
       } else {
         res.send({ err: response });
       }

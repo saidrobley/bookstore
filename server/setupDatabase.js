@@ -34,9 +34,11 @@ const db = require('./db/index');
       total           DECIMAL(10,2)   NOT NULL,
       status          VARCHAR(50)     NOT NULL,
       userId          INT             NOT NULL,
+      items           JSONB[]          NOT NULL,        
       created         DATE            NOT NULL,
       modified        DATE            NOT NULL,
       FOREIGN KEY (userId) REFERENCES users(id)
+
       
     );
   `;

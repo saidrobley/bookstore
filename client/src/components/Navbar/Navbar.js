@@ -9,9 +9,9 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const dispatch = useDispatch();
   const quantity = useSelector((state) => state.cart.quantity);
-  console.log(quantity);
+  //console.log(quantity);
   const user = useSelector((state) => state.user);
-  console.log('user from nav', user);
+  //console.log('user from nav', user);
 
   return (
     <Container>

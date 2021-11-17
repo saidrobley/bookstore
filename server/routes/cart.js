@@ -5,6 +5,7 @@ const CartService = require('../services/CartService');
 const CartServiceInstance = new CartService();
 
 const checkAuthentication = require('../services/checkAuthentication');
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 router.get('/self', checkAuthentication, async (req, res, next) => {
   try {
@@ -83,6 +84,7 @@ router.delete(
 );
 
 router.post('/self/checkout', checkAuthentication, async (req, res, next) => {
+  console.log('inside self check');
   try {
     const { id } = req.user;
     const { cartId, paymentInfo } = req.body;
@@ -96,6 +98,23 @@ router.post('/self/checkout', checkAuthentication, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+router.post('/payment', (req, res) => {
+  stripe.charges.create(
+    {
+      source: req.body.tokenId,
+      amount: req.body.amount,
+      currency: 'usd',
+    },
+    (stripeErr, stripeRes) => {
+      if (stripeErr) {
+        res.status(500).json(stripeErr);
+      } else {
+        res.status(200).json(stripeRes);
+      }
+    }
+  );
 });
 
 module.exports = router;
