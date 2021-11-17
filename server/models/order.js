@@ -19,19 +19,13 @@ module.exports = class OrderModel {
   }
 
   async addItems(items) {
-    console.log('items,,,,,,: ', items);
     this.items = await items.map((item) => new OrderItem(item));
-    //this.items = await items.map((item) => new CartItemModel(item));
-    console.log('end of addItems');
   }
 
   // create order
   async create() {
-    console.log('inside create');
-    console.log('this', this);
     const data = { ...this };
-    console.log('data', data);
-    console.log('data items:', data.items);
+
     try {
       const result = await db.query(
         `INSERT INTO orders (created, modified, status, total, userId, items)
@@ -55,11 +49,6 @@ module.exports = class OrderModel {
   }
 
   async update(data) {
-    console.log('inside order.update');
-    //console.log('data: ', data);
-    //console.log('userId', userId);
-    console.log('data', data);
-    //console.log('userId', userId);
     try {
       const result = await db.query(
         `UPDATE orders SET status=$1 where userId=$2 RETURNING *`,

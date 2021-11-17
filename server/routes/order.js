@@ -17,12 +17,8 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res) => {
   const newOrder = req.body;
-  console.log('new Order ', newOrder);
   try {
-    // const newOrder = await req.body;
-    // res.status(200).json(newOrder);
     const response = await OrderServiceInstance.createOrder(newOrder);
-    console.log('response in route order', response);
     res.status(200).json(response);
   } catch (err) {
     console.log(err);

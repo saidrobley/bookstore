@@ -2,11 +2,16 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import Navbar from '../components/Navbar/Navbar';
 
 const Success = () => {
   const location = useLocation();
   const data = location.state.stripeData;
+  const products = location.state.products;
+  console.log('products', products);
+  console.log('data', data);
   const cart = useSelector((state) => state.cart);
+
   const currentUser = useSelector((state) => state.user);
   const [orderId, setOrderId] = useState(null);
   const [order, setOrder] = useState({});
@@ -42,13 +47,14 @@ const Success = () => {
 
   return (
     <div>
-      {order && (
+      <Navbar />
+      {order.id && (
         <div>
           <p>Success</p>
-          <p>Order Number: {order?.id}</p>
-          <p>Total: ${order?.total}</p>
-          <p>userId: {order?.userid}</p>
-          {order?.items?.map((item) => (
+          <p>Order Number: {order.id}</p>
+          <p>Total: ${order.total}</p>
+          <p>userId: {order.userid}</p>
+          {order.items.map((item) => (
             <div>
               <p>================</p>
               <p>Title: {item.name}</p>
