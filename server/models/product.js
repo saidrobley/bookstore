@@ -19,6 +19,20 @@ module.exports = class ProductModel {
     }
   }
 
+  async updateItem(item) {
+    try {
+      const result = await db.query(
+        'UPDATE products set name=$1, price=$2, description=$3, image_url=$4 WHERE id=$5 returning *',
+        [item.name, item.price, item.description, item.image_url, item.id]
+      );
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async addItem(item) {
     try {
       const result = await db.query(

@@ -1,10 +1,9 @@
 import Home from './pages/Home';
 import Login from './components/account/login/Login';
-import Logout from './components/account/logout/Logout';
 import Register from './components/account/register/Register';
 import { useSelector } from 'react-redux';
 import Product from './pages/Product';
-
+import Admin from './pages/Admin';
 import {
   BrowserRouter as Router,
   Route,
@@ -14,9 +13,11 @@ import {
 import React from 'react';
 import Cart from './pages/Cart';
 import Success from './pages/Success';
+import ProductEdit from './pages/ProductEdit';
 
 const App = () => {
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user);
+
   return (
     <Router>
       <Switch>
@@ -30,9 +31,7 @@ const App = () => {
         <Route path="/account/register" exact>
           {user ? <Redirect to="/" /> : <Register />}
         </Route>
-        <Route path="/account/logout">
-          <Logout />
-        </Route>
+
         <Route path="/products/:id">
           <Product />
         </Route>
@@ -41,6 +40,13 @@ const App = () => {
         </Route>
         <Route path="/success">
           <Success />
+        </Route>
+
+        <Route path="/admin">
+          {user.isAdmin ? <Admin /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/product/:id">
+          <ProductEdit />
         </Route>
       </Switch>
     </Router>

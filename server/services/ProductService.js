@@ -36,4 +36,12 @@ module.exports = class ProductService {
       console.log(err);
     }
   }
+  // update product
+  async updateItem(data) {
+    try {
+      return await ProductModelInstance.updateItem(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 };

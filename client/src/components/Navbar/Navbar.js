@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { update } from '../../redux/userRedux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { removeProduct } from '../../redux/cartRedux';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,14 @@ const Navbar = () => {
   //console.log(quantity);
   const user = useSelector((state) => state.user);
   //console.log('user from nav', user);
-
+  const handleClick = async () => {
+    try {
+      await dispatch(update({ email: '', firstname: '', lastname: '' }));
+      await dispatch(removeProduct({ products: [], quantity: 0, total: 0 }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Container>
       <Wrapper>
@@ -32,12 +40,7 @@ const Navbar = () => {
 
           <MenuItem>
             {user.email ? (
-              <Logout
-                style={{ textDecoration: 'none' }}
-                onClick={() =>
-                  dispatch(update({ email: '', firstname: '', lastname: '' }))
-                }
-              >
+              <Logout style={{ textDecoration: 'none' }} onClick={handleClick}>
                 Logout
               </Logout>
             ) : (
@@ -57,6 +60,7 @@ const Navbar = () => {
               </Link>
             )}
           </MenuItem>
+
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity}>

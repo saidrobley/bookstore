@@ -20,7 +20,7 @@ const Login = () => {
 
     try {
       const response = await axios.post('/auth/login', userData);
-      console.log('react auth login', response);
+      console.log('react auth login', response.data);
       if (response.data.email) {
         console.log(response.data);
         dispatch(update(response.data));

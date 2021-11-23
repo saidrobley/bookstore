@@ -19,8 +19,8 @@ const Product = () => {
     const getProduct = async () => {
       try {
         const response = await axios.get(`/products/${id}`);
-        console.log('response', response.data.product);
-        setProduct(response.data.product);
+        console.log('response', response.data);
+        setProduct(response.data);
       } catch {}
     };
     getProduct();

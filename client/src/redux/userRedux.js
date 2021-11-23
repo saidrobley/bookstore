@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     email: '',
     firstname: '',
     lastname: '',
+    isAdmin: '',
   },
   reducers: {
     update: (state, action) => {
@@ -14,6 +15,7 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.firstname = action.payload.firstname;
       state.lastname = action.payload.lastname;
+      state.isAdmin = action.payload.isadmin;
     },
   },
 });

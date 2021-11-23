@@ -10,8 +10,7 @@ const db = require('./db/index');
       password        TEXT,
       firstName       VARCHAR(100),
       lastName        VARCHAR(50),
-      address1        VARCHAR(100),
-      address2        VARCHAR(100),
+      isAdmin         BOOLEAN DEFAULT FALSE,
       date_joined     TIMESTAMP DEFAULT(now())
      
     );
@@ -23,6 +22,7 @@ const db = require('./db/index');
       name            VARCHAR(100)     NOT NULL,
       price           DECIMAL(10,2)    NOT NULL,
       description     VARCHAR(100)     NOT NULL,
+      quantity        INT DEFAULT 1    NOT NULL,
       image_url       VARCHAR(100)     NOT NULL
     
     );

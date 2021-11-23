@@ -48,6 +48,7 @@ module.exports = class AuthService {
       const match = await bcrypt.compare(password, user.password);
 
       if (match) {
+        console.log('inside match auth service user', user);
         return user;
       }
       return 'Incorrect username or password';

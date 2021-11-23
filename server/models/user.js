@@ -10,16 +10,9 @@ module.exports = class UserModel {
       const hashPassword = await bcrypt.hash(user.password, saltRounds);
       const result = await db.query(
         `INSERT INTO users 
-                (email, password, firstName, lastName, address1, address2) 
-                values($1, $2, $3, $4, $5, $6) returning *`,
-        [
-          user.email.toLowerCase(),
-          hashPassword,
-          user.firstName,
-          user.lastName,
-          user.address1,
-          user.address2,
-        ]
+                (email, password, firstName, lastName) 
+                values($1, $2, $3, $4) returning *`,
+        [user.email.toLowerCase(), hashPassword, user.firstName, user.lastName]
       );
 
       if (result.rows?.length) {

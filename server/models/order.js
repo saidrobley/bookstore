@@ -19,7 +19,8 @@ module.exports = class OrderModel {
   }
 
   async addItems(items) {
-    this.items = await items.map((item) => new OrderItem(item));
+    this.items = await items.map((item) => new OrderItem(item, this.userId));
+    console.log('items inside addItems', this.items);
   }
 
   // create order

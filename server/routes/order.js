@@ -15,8 +15,9 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', checkAuthentication, async (req, res) => {
   const newOrder = req.body;
+  console.log('inside post order', newOrder);
   try {
     const response = await OrderServiceInstance.createOrder(newOrder);
     res.status(200).json(response);

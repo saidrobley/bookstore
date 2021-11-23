@@ -13,7 +13,8 @@ function Products(props) {
   const fetchProducts = async () => {
     try {
       const response = await axios.get('/products');
-      setProducts(response.data.products);
+      console.log('response', response);
+      setProducts(response.data);
     } catch (err) {
       console.log(err);
     }

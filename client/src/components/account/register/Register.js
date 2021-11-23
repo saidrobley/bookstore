@@ -14,8 +14,6 @@ const Register = () => {
     password: '',
     firstName: '',
     lastName: '',
-    address1: '',
-    address2: '',
   });
 
   const handleChange = (e) => {
@@ -88,28 +86,6 @@ const Register = () => {
             placeholder="Last Name"
             required
             value={user.lastName}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>address1:</label>
-          <input
-            type="text"
-            name="address1"
-            placeholder="Address1"
-            required
-            value={user.address1}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>address2:</label>
-          <input
-            type="text"
-            name="address2"
-            placeholder="Address2"
-            required
-            value={user.address2}
             onChange={handleChange}
           />
         </div>
