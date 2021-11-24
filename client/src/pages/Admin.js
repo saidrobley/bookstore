@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import LeftMenu from '../components/LeftMenu/LeftMenu';
 import Navbar from '../components/Navbar/Navbar';
 import ProductList from './ProductList';
 
@@ -9,15 +10,10 @@ const Admin = () => {
     <div>
       <Navbar />
       <Container>
-        <LinkItem>
-          <Link to="/admin/productlist">Edit</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link to="/admin/productadd">Add</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link to="/admin/delete">Delete</Link>
-        </LinkItem>
+        <LeftMenu />
+        <Right>
+          <ProductList />
+        </Right>
       </Container>
       {/* <ProductList /> */}
     </div>
@@ -25,11 +21,14 @@ const Admin = () => {
 };
 const Container = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-item: center;
 `;
-const LinkItem = styled.div`
-  flex: 1;
-  text-align: center;
+
+const Right = styled.div`
+  flex: 4;
+
+  height: 70vh;
 `;
+
 export default Admin;

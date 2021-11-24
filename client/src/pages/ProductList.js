@@ -73,7 +73,6 @@ function ProductList() {
 
   return (
     <div style={{ height: '70vh', width: '100%' }}>
-      <Navbar />
       <h2 style={{ color: 'blue', textAlign: 'center', margin: '10px' }}>
         Product List
       </h2>
