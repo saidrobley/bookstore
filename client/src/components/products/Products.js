@@ -22,7 +22,8 @@ function Products(props) {
 
   return (
     <Wrapper>
-      <h1>Products</h1>
+      <h1>BOOKS</h1>
+
       <Container>
         {products &&
           products.map((product) => {
@@ -34,11 +35,13 @@ function Products(props) {
 }
 
 export default Products;
+
 const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 1px;
 
   ${
     '' /* display: grid;

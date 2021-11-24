@@ -4,6 +4,7 @@ import { DeleteOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './productList.css';
+import Navbar from '../components/Navbar/Navbar';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -19,8 +20,14 @@ function ProductList() {
     };
     getAllProducts();
   }, []);
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     setProducts(products.filter((item) => item.id != id));
+    try {
+      const res = await axios.delete(`/products/${id}`);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
@@ -66,6 +73,7 @@ function ProductList() {
 
   return (
     <div style={{ height: '70vh', width: '100%' }}>
+      <Navbar />
       <h2 style={{ color: 'blue', textAlign: 'center', margin: '10px' }}>
         Product List
       </h2>

@@ -8,7 +8,7 @@ module.exports = class ProductModel {
   //async find(options = {}) {
   async find() {
     try {
-      const result = await db.query('SELECT * FROM products');
+      const result = await db.query('SELECT * FROM products ORDER BY id');
       //const result = `SELECT * FROM products`;
       if (result.rows?.length) {
         return result.rows;
@@ -22,8 +22,15 @@ module.exports = class ProductModel {
   async updateItem(item) {
     try {
       const result = await db.query(
-        'UPDATE products set name=$1, price=$2, description=$3, image_url=$4 WHERE id=$5 returning *',
-        [item.name, item.price, item.description, item.image_url, item.id]
+        'UPDATE products set name=$1, price=$2, quantity=$3, description=$4, image_url=$5 WHERE id=$6 returning *',
+        [
+          item.name,
+          item.price,
+          item.quantity,
+          item.description,
+          item.image_url,
+          item.id,
+        ]
       );
       if (result.rows?.length) {
         return result.rows[0];
@@ -36,8 +43,8 @@ module.exports = class ProductModel {
   async addItem(item) {
     try {
       const result = await db.query(
-        'INSERT INTO products (name, price, description, image_url) values($1, $2, $3, $4) returning *',
-        [item.name, item.price, item.description, item.image_url]
+        'INSERT INTO products (name, price, description, quantity, image_url) values($1, $2, $3, $4, $5) returning *',
+        [item.name, item.price, item.description, item.quantity, item.image_url]
       );
       if (result.rows?.length) {
         return result.rows[0];
@@ -62,6 +69,17 @@ module.exports = class ProductModel {
       }
     } catch (err) {
       throw err;
+    }
+  }
+  async delete(id) {
+    console.log('inside delete model', id);
+    try {
+      const result = await db.query('DELETE FROM products where id=$1', [id]);
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 };

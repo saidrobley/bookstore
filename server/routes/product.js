@@ -33,13 +33,10 @@ router.get('/:productId', async (req, res, next) => {
 router.post('/', async (req, res) => {
   try {
     const item = req.body;
-    console.log('item', item);
     const response = await ProductServiceInstance.addItem(item);
     if (response) {
       console.log(response);
-      res.status(200).json({
-        product: response,
-      });
+      res.status(200).json(response);
     }
   } catch (err) {
     console.log(err);
@@ -48,8 +45,24 @@ router.post('/', async (req, res) => {
 
 // update
 router.post('/:productId', async (req, res) => {
+  console.log('product:,', req.body);
+  req.body.quantity = Number(req.body.quantity);
+  console.log('product::::', req.body);
   try {
     const response = await ProductServiceInstance.updateItem(req.body);
+    if (response) {
+      console.log(response);
+      res.status(200).json(response);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+//delete
+router.delete('/:productId', async (req, res) => {
+  const { productId } = req.params;
+  try {
+    const response = await ProductServiceInstance.deleteItem(productId);
     if (response) {
       console.log(response);
       res.status(200).json(response);

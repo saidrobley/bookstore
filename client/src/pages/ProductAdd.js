@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
-import styled from 'styled-components';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar/Navbar';
+import styled from 'styled-components';
+import axios from 'axios';
 
-const ProductEdit = () => {
-  const location = useLocation();
-  const history = useHistory();
-  const productId = location.pathname.split('/')[2];
+const ProductAdd = () => {
   const [product, setProduct] = useState({
     name: '',
     price: '',
@@ -16,19 +11,6 @@ const ProductEdit = () => {
     quantity: '',
     image_url: '',
   });
-
-  useEffect(() => {
-    const getProduct = async (id) => {
-      try {
-        const res = await axios.get(`/products/${id}`);
-        console.log('item', res.data);
-        setProduct(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getProduct(productId);
-  }, [productId]);
   const handleChange = (e) => {
     setProduct({
       ...product,
@@ -37,47 +19,51 @@ const ProductEdit = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('product: ', product);
+    console.log('product', product);
     try {
-      const res = await axios.post(`/products/${productId}`, product);
-
-      history.push('/');
+      const res = await axios.post('/products', product);
+      console.log('res data', res.data);
     } catch (err) {
       console.log(err);
     }
   };
   return (
-    <>
+    <div>
       <Navbar />
       <Form onSubmit={handleSubmit}>
-        <h1>Edit</h1>
+        <h1>Add</h1>
         <InputItem
           type="text"
           name="name"
+          placeholder="Name"
           value={product.name}
           onChange={handleChange}
         />
         <InputItem
           type="text"
           name="description"
+          placeholder="Description"
           value={product.description}
           onChange={handleChange}
         />
         <InputItem
           type="text"
           name="price"
+          placeholder="Price"
           value={product.price}
           onChange={handleChange}
         />
         <InputItem
           type="text"
           name="quantity"
+          placeholder="Quantity"
           value={product.quantity}
           onChange={handleChange}
         />
         <InputItem
           type="text"
           name="image_url"
+          placeholder="Image Url"
           value={product.image_url}
           onChange={handleChange}
         />
@@ -90,10 +76,10 @@ const ProductEdit = () => {
           }}
           type="submit"
           name="submit"
-          value="Edit"
+          value="Add"
         />
       </Form>
-    </>
+    </div>
   );
 };
 const Form = styled.form`
@@ -106,5 +92,4 @@ const InputItem = styled.input`
   padding: 10px;
   margin: 2px;
 `;
-
-export default ProductEdit;
+export default ProductAdd;

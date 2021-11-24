@@ -32,10 +32,17 @@ const Navbar = () => {
           </Logo>
         </Left>
         <Right>
+          {/* <MenuItem></MenuItem> */}
           <MenuItem>
-            <Link style={{ textDecoration: 'none' }} to="/">
-              Home
-            </Link>
+            {user.isAdmin ? (
+              <Link style={{ textDecoration: 'none' }} to="/admin">
+                Admin
+              </Link>
+            ) : (
+              <Link style={{ textDecoration: 'none' }} to="/">
+                Home
+              </Link>
+            )}
           </MenuItem>
 
           <MenuItem>
@@ -79,6 +86,8 @@ export default Navbar;
 const Container = styled.div`
   background-color: teal;
   margin-bottom: 2rem;
+  position: sticky;
+  top: 0;
 `;
 const Wrapper = styled.div`
   padding: 10px 20px;

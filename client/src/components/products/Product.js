@@ -20,5 +20,5 @@ const Product = ({ product }) => {
 export default Product;
 const ProductItem = styled.div`
   flex: 1;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 `;

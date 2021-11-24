@@ -44,4 +44,12 @@ module.exports = class ProductService {
       console.log(err);
     }
   }
+  // delete item
+  async deleteItem(id) {
+    try {
+      return await ProductModelInstance.delete(id);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 };
