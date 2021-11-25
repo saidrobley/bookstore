@@ -22,7 +22,7 @@ const ProductEdit = () => {
     const getProduct = async (id) => {
       try {
         const res = await axios.get(`/products/${id}`);
-        console.log('item', res.data);
+
         setProduct(res.data);
       } catch (err) {
         console.log(err);
@@ -38,7 +38,7 @@ const ProductEdit = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('product: ', product);
+
     try {
       const res = await axios.post(`/products/${productId}`, product);
 

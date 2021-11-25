@@ -23,35 +23,21 @@ module.exports = class UserModel {
       throw new Error(err);
     }
   }
-
-  // console.log('inside UserMode createUser', user);
-  // bcrypt.hash(user.password, saltRounds, async (err, hash) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log('user inside model users', user);
-
-  //     const result = await db.query(
-  //       `INSERT INTO users
-  //           (email, password, firstName, lastName, address1, address2)
-  //           values($1, $2, $3, $4, $5, $6) returning *`,
-  //       [
-  //         user.email.toLowerCase(),
-  //         hash,
-  //         user.firstName,
-  //         user.lastName,
-  //         user.address1,
-  //         user.address2,
-  //       ]
-  //     );
-
-  //     if (result.rows?.length) {
-  //       console.log('after create user ', result.rows[0]);
-  //       return result.rows[0];
-  //     }
-  //   }
-  // });
-
+  // update admin
+  async updateAdmin(user) {
+    console.log('inside admin', user);
+    try {
+      const updatedUser = await db.query(
+        'UPDATE users SET isadmin=$1 where id=$2 returning *',
+        [user.isadmin, user.id]
+      );
+      if (updatedUser.rows?.length) {
+        return updatedUser.rows[0];
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   // update a user
   async updateUser(user) {
     const updateUser = await db.query(
@@ -74,10 +60,7 @@ module.exports = class UserModel {
   // get one user
   async getUserById(id) {
     try {
-      const user = await db.query(
-        `SELECT * FROM users where id = $1 returning *`,
-        [id]
-      );
+      const user = await db.query('SELECT * FROM users where id = $1', [id]);
       return user.rows[0];
     } catch (err) {
       throw new Error(err);
@@ -99,6 +82,17 @@ module.exports = class UserModel {
       return null;
     } catch (err) {
       throw new Error(err);
+    }
+  }
+  // get all users
+  async getAllUsers() {
+    try {
+      const user = await db.query('SELECT * FROM users');
+      if (user.rows?.length) {
+        return user.rows;
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 };

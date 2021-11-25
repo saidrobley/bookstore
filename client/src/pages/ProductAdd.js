@@ -24,6 +24,13 @@ const ProductAdd = () => {
     try {
       const res = await axios.post('/products', product);
       console.log('res data', res.data);
+      setProduct({
+        name: '',
+        price: '',
+        description: '',
+        quantity: '',
+        image_url: '',
+      });
     } catch (err) {
       console.log(err);
     }
@@ -31,7 +38,6 @@ const ProductAdd = () => {
   return (
     <div>
       <Navbar />
-
       <Container>
         <LeftMenu />
         <Form onSubmit={handleSubmit}>

@@ -3,10 +3,10 @@ const createError = require('http-errors');
 const UserModelInstance = new UserModel();
 
 module.exports = class UserService {
-  async get(data) {
-    const { id } = data;
+  async get(userId) {
+    //const { id } = data;
     try {
-      const user = await UserModelInstance.getUserById(id);
+      const user = await UserModelInstance.getUserById(userId);
       // if user doesn't exist, reject
       if (!user) {
         //throw createError(404, 'User record not found');

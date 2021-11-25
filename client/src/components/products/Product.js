@@ -6,12 +6,29 @@ const Product = ({ product }) => {
   return (
     <ProductItem key={product?.id}>
       <Link to={`/products/${product?.id}`}>
-        <p>{product?.name}</p>
+        <p
+          style={{
+            display: 'flex',
+            height: '50px',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {product?.name}
+        </p>
 
         <img alt={product?.name} src={product?.image_url} />
 
-        <p>{product?.description}</p>
-        <p>${product?.price}</p>
+        <p
+          style={{
+            display: 'flex',
+
+            justifyContent: 'center',
+          }}
+        >
+          {product?.description}
+        </p>
+        <p style={{ paddingTop: '5px' }}>${product?.price}</p>
       </Link>
     </ProductItem>
   );

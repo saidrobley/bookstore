@@ -13,9 +13,6 @@ const LeftMenu = () => {
       <LinkItem>
         <Link to="/admin/productadd">Add New Product</Link>
       </LinkItem>
-      <LinkItem>
-        <Link to="/admin/delete">Delete</Link>
-      </LinkItem>
     </Left>
   );
 };

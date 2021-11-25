@@ -16,6 +16,8 @@ import Success from './pages/Success';
 import ProductEdit from './pages/ProductEdit';
 import ProductList from './pages/ProductList';
 import ProductAdd from './pages/ProductAdd';
+import Users from './pages/Users';
+import UserEdit from './pages/UserEdit';
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -31,7 +33,8 @@ const App = () => {
         </Route>
 
         <Route path="/account/register" exact>
-          {user ? <Redirect to="/" /> : <Register />}
+          {/* {user ? <Redirect to="/" /> : <Register />} */}
+          <Register />
         </Route>
 
         <Route path="/products/:id">
@@ -46,6 +49,9 @@ const App = () => {
         <Route path="/admin/productlist">
           {user.isAdmin ? <ProductList /> : <Redirect to="/" />}
         </Route>
+        <Route path="/admin/users">
+          {user.isAdmin ? <Users /> : <Redirect to="/" />}
+        </Route>
         <Route path="/admin/productadd">
           {user.isAdmin ? <ProductAdd /> : <Redirect to="/" />}
         </Route>
@@ -55,6 +61,9 @@ const App = () => {
 
         <Route path="/product/:id">
           <ProductEdit />
+        </Route>
+        <Route path="/users/:id">
+          <UserEdit />
         </Route>
       </Switch>
     </Router>

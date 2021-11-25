@@ -98,8 +98,6 @@ const Register = () => {
     </div>
   );
 };
-
-export default Register;
 const Form = styled.form`
   box-sizing: border-box;
   width: 50%;
@@ -150,6 +148,8 @@ const Form = styled.form`
     text-transform: uppercase;
   }
 `;
+
+export default Register;
 
 // class Register extends React.Component {
 //   constructor(props) {

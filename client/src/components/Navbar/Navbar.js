@@ -85,7 +85,6 @@ export default Navbar;
 
 const Container = styled.div`
   background-color: teal;
-
   position: sticky;
   top: 0;
 `;
