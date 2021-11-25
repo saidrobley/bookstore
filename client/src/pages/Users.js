@@ -38,14 +38,22 @@ const Users = () => {
             </Link>
             <DeleteOutline
               className="productListDelete"
-              // onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete(params.row.id)}
             />
           </>
         );
       },
     },
   ];
-
+  const handleDelete = async (id) => {
+    setUsers(users.filter((item) => item.id != id));
+    try {
+      const res = await axios.delete(`/users/${id}`);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
       <Navbar />

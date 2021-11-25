@@ -10,7 +10,7 @@ const UserServiceInstance = new UserService();
 router.get('/', async (req, res) => {
   try {
     const users = await UserModelInstance.getAllUsers();
-    console.log('users', users);
+
     if (users) {
       res.status(200).json(users);
     }
@@ -29,16 +29,25 @@ router.get('/:userId', async (req, res, next) => {
     next(err);
   }
 });
+// delete user
+router.delete('/:userId', async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const userDeleted = await UserModelInstance.delete(userId);
+    res.status(200).json(userDeleted);
+  } catch (err) {
+    console.log(err);
+  }
+});
 // update
 router.post('/:userId', async (req, res) => {
-  console.log('inside here');
   const { userId } = req.params;
 
   try {
     const user = req.body;
-    console.log('user ...', user);
+
     const userUpdated = await UserModelInstance.updateAdmin(user);
-    console.log('user', userUpdated);
+
     res.status(200).json(userUpdated);
   } catch (err) {
     console.log(err);

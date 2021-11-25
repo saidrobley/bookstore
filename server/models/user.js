@@ -38,6 +38,17 @@ module.exports = class UserModel {
       console.log(err);
     }
   }
+  // delete a user
+  async delete(id) {
+    try {
+      const result = await db.query('DELETE FROM users where id=$1', [id]);
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   // update a user
   async updateUser(user) {
     const updateUser = await db.query(
