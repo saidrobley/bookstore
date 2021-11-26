@@ -14,7 +14,9 @@ const Product = ({ product }) => {
             alignItems: 'center',
           }}
         >
-          {product?.name}
+          {product.name.length > 20
+            ? product.name.substring(0, 20) + '....'
+            : product.name}
         </p>
 
         <img alt={product?.name} src={product?.image_url} />
@@ -22,11 +24,12 @@ const Product = ({ product }) => {
         <p
           style={{
             display: 'flex',
-
             justifyContent: 'center',
           }}
         >
-          {product?.description}
+          {product.description.length > 20
+            ? product.description.substring(0, 20) + '....'
+            : product.description}
         </p>
         <p style={{ paddingTop: '5px' }}>${product?.price}</p>
       </Link>

@@ -47,7 +47,7 @@ const UserEdit = () => {
     try {
       const res = await axios.post(`/users/${id}`, user);
       //if (res.data.email) {
-      history.push('/');
+      history.push('/admin/users');
       //}
     } catch (err) {
       console.log(err);
@@ -89,6 +89,11 @@ const Right = styled.div`
   height: 5vh;
   display: flex;
   gap: 1rem;
+  form {
+    display: flex;
+
+    flex: 3;
+  }
   input,
   select,
   button {

@@ -14,6 +14,8 @@ function Products(props) {
     try {
       const response = await axios.get('/products');
       console.log('response', response);
+      console.log(response.data[0].description.substring(0, 50));
+      console.log(response.data[0].description);
       setProducts(response.data);
     } catch (err) {
       console.log(err);

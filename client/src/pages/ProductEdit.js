@@ -42,7 +42,7 @@ const ProductEdit = () => {
     try {
       const res = await axios.post(`/products/${productId}`, product);
 
-      history.push('/');
+      history.push('/admin');
     } catch (err) {
       console.log(err);
     }

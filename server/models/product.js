@@ -8,7 +8,9 @@ module.exports = class ProductModel {
   //async find(options = {}) {
   async find() {
     try {
-      const result = await db.query('SELECT * FROM products ORDER BY id');
+      const result = await db.query(
+        'SELECT * FROM products ORDER BY price DESC'
+      );
       //const result = `SELECT * FROM products`;
       if (result.rows?.length) {
         return result.rows;
