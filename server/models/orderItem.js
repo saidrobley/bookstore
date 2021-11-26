@@ -20,15 +20,7 @@ module.exports = class OrderItemModel {
    * @param {Object}          data  [Order item data]
    * @return {Object|null}          [Created order item]
    */
-  /*
-      created         DATE            NOT NULL, 
-      qty             INT             NOT NULL,
-      price           INT             NOT NULL,
-      name            VARCHAR(50)     NOT NULL,
-      description     VARCHAR(200)    NOT NULL,
-      orderId         INT             NOT NULL,
-      productId       INT             NOT NULL,
-  */
+
   static async create(data) {
     try {
       const orderItem = db.query(

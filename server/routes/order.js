@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', checkAuthentication, async (req, res) => {
   const newOrder = req.body;
-  console.log('inside post order', newOrder);
+
   try {
     const response = await OrderServiceInstance.createOrder(newOrder);
     res.status(200).json(response);
@@ -25,20 +25,10 @@ router.post('/', checkAuthentication, async (req, res) => {
     console.log(err);
   }
 });
-/*
-      total           DECIMAL(10,2)   NOT NULL,
-      status          VARCHAR(50)     NOT NULL,
-      userId          INT             NOT NULL,
-*/
 
 router.get('/:ordeId', checkAuthentication, async (req, res, next) => {
-  // if (req.user) {
-  //   console.log('llll');
-  //   console.log('user:', req.user.id);
-  // }
   try {
     const orderId = req.params.ordeId;
-
     const response = await OrderServiceInstance.getOrderById(orderId);
     res.status(200).send(response);
   } catch (err) {

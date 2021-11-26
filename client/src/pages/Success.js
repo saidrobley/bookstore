@@ -9,8 +9,7 @@ const Success = () => {
   const location = useLocation();
   let data = location.state.stripeData;
   let products = location.state.products;
-  console.log('products', products);
-  console.log('data', data);
+
   const cart = useSelector((state) => state.cart);
 
   const currentUser = useSelector((state) => state.user);
@@ -37,7 +36,6 @@ const Success = () => {
         await setOrderId(res.data.id);
         await setOrder(res.data);
         await dispatch(removeProduct({ products: [], quantity: 0, total: 0 }));
-        //products = [];
       } catch (err) {
         console.log(err);
       }

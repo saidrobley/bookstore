@@ -84,7 +84,6 @@ router.delete(
 );
 
 router.post('/self/checkout', checkAuthentication, async (req, res, next) => {
-  console.log('inside self check');
   try {
     const { id } = req.user;
     const { cartId, paymentInfo } = req.body;

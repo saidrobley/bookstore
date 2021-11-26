@@ -20,10 +20,10 @@ const ProductAdd = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('product', product);
+
     try {
       const res = await axios.post('/products', product);
-      console.log('res data', res.data);
+
       setProduct({
         name: '',
         price: '',

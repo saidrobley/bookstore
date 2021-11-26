@@ -9,8 +9,7 @@ module.exports = class OrderModel {
   constructor(data = {}) {
     this.userId = data.userId || null;
     this.items = data.products || [];
-    //this.productId = data.productId;
-    //this.items = this.addItems(data.items) || [];
+
     this.total = data.total || 0;
 
     this.created = data.created || moment.utc().toISOString();
@@ -20,7 +19,6 @@ module.exports = class OrderModel {
 
   async addItems(items) {
     this.items = await items.map((item) => new OrderItem(item, this.userId));
-    console.log('items inside addItems', this.items);
   }
 
   // create order

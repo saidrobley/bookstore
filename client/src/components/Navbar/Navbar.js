@@ -10,9 +10,9 @@ import { removeProduct } from '../../redux/cartRedux';
 const Navbar = () => {
   const dispatch = useDispatch();
   const quantity = useSelector((state) => state.cart.quantity);
-  //console.log(quantity);
+
   const user = useSelector((state) => state.user);
-  //console.log('user from nav', user);
+
   const handleClick = async () => {
     try {
       await dispatch(update({ email: '', firstname: '', lastname: '' }));
@@ -32,7 +32,6 @@ const Navbar = () => {
           </Logo>
         </Left>
         <Right>
-          {/* <MenuItem></MenuItem> */}
           <MenuItem>
             {user.isAdmin ? (
               <Link style={{ textDecoration: 'none' }} to="/admin">

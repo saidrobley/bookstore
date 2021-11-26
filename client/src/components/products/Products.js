@@ -13,9 +13,6 @@ function Products(props) {
   const fetchProducts = async () => {
     try {
       const response = await axios.get('/products');
-      console.log('response', response);
-      console.log(response.data[0].description.substring(0, 50));
-      console.log(response.data[0].description);
       setProducts(response.data);
     } catch (err) {
       console.log(err);
@@ -44,20 +41,6 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1px;
-
-  ${
-    '' /* display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  } */
-  }
 `;
 
 const Wrapper = styled.div`

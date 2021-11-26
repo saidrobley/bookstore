@@ -22,8 +22,7 @@ router.get('/:userId', async (req, res, next) => {
     const { userId } = req.params;
 
     const response = await UserServiceInstance.get(userId);
-    // const { email, firstname, lastname, isadmin} =
-    //   response;
+
     res.status(200).json(response);
   } catch (err) {
     next(err);
@@ -53,16 +52,5 @@ router.post('/:userId', async (req, res) => {
     console.log(err);
   }
 });
-
-// create a new user
-// router.post('/', async (req, res, next) => {
-//   const { id, username, password, address, full_name } = req.body;
-//   try {
-//     const newUser = await UserServiceInstance.create(req.body);
-//     res.status(200).json({ user: newUser });
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 module.exports = router;

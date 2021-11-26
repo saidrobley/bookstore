@@ -8,11 +8,7 @@ module.exports = class CartModel {
     this.converted = data.converted || null;
     this.isActive = data.isActive || true;
   }
-  /*
-id              INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-      userId          INT             NOT NULL,
-      created         TIMESTAMP       DEFAULT (now()),
-*/
+
   static async create(userId) {
     try {
       const data = { userId, ...this };
@@ -20,11 +16,6 @@ id              INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NUL
       const result = db.query(`INSERT INTO carts (userId) values($1)`, [
         data.userId,
       ]);
-      // Generate SQL statement - using helper for dynamic parameter injection
-      // const statement = pgp.helpers.insert(data, null, 'carts') + 'RETURNING *';
-
-      // Execute SQL statment
-      //const result = await db.query(statement);
 
       if (result.rows?.length) {
         return result.rows[0];
@@ -86,7 +77,6 @@ id              INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NUL
   }
 
   static async delete(id) {
-    console.log('inside delete id', id);
     try {
       // Generate SQL statement
       const result = await db.query(

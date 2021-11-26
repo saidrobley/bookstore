@@ -2,3 +2,4 @@ node_modules
 .env
 server/db/db.sql
 todo.txt
+script.js

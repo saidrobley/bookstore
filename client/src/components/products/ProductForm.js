@@ -23,7 +23,7 @@ function ProductForm(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = axios.post('/products', product);
-    console.log('response', response.data);
+
     history.push('/product/add');
     setProduct({
       name: '',

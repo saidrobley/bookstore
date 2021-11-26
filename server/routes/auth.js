@@ -32,14 +32,7 @@ router.post(
       });
 
       const { id, email, firstname, lastname, isadmin } = response;
-      console.log(
-        'id, email, firstna...',
-        id,
-        email,
-        firstname,
-        lastname,
-        isadmin
-      );
+
       if (id) {
         res.status(200).json(response);
       } else {
@@ -63,15 +56,6 @@ router.get('/logout', async (req, res) => {
   req.logout();
 
   res.status(200).json({ message: 'user successfully logout!' });
-});
-
-router.get('/secret', checkAuthentication, async (req, res) => {
-  if (req.user) {
-    const user = await userModelInstance.getUserById(req.user.id.id);
-    res.send(user);
-  } else {
-    console.log('err inside secret');
-  }
 });
 
 module.exports = router;

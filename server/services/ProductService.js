@@ -6,7 +6,6 @@ module.exports = class ProductService {
   // all items.
   async getAllProducts() {
     try {
-      //const products = await ProductModelInstance.find(options);
       const products = await ProductModelInstance.find();
       return products;
     } catch (err) {

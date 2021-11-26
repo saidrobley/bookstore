@@ -12,7 +12,7 @@ function ProductList() {
     const getAllProducts = async () => {
       try {
         const res = await axios.get('/products');
-        console.log('products: ', res.data);
+
         setProducts(res.data);
       } catch (err) {
         console.log(err);
@@ -24,7 +24,6 @@ function ProductList() {
     setProducts(products.filter((item) => item.id != id));
     try {
       const res = await axios.delete(`/products/${id}`);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }

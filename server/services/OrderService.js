@@ -6,7 +6,6 @@ module.exports = class OrderService {
   async createOrder(data) {
     const { userId, total, products } = data;
     try {
-      console.log('products inside order service', products);
       const Order = new OrderModel({ total, userId });
 
       await Order.addItems(products);

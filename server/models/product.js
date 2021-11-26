@@ -74,7 +74,6 @@ module.exports = class ProductModel {
     }
   }
   async delete(id) {
-    console.log('inside delete model', id);
     try {
       const result = await db.query('DELETE FROM products where id=$1', [id]);
       if (result.rows?.length) {

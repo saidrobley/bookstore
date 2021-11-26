@@ -18,8 +18,7 @@ const UserEdit = () => {
   useEffect(() => {
     const getUser = async (id) => {
       const response = await axios.get(`/users/${id}`);
-      console.log(response.data);
-      //setUser(response.data);
+
       setUser({
         id: response.data.id,
         email: response.data.email,
@@ -34,7 +33,6 @@ const UserEdit = () => {
     { field: 'isadmin', headerName: 'Is Admin', width: 200 },
   ];
   const handleChange = (e) => {
-    console.log(e.target.value);
     const newIsAdmin = JSON.parse(e.target.value);
     setUser({
       ...user,
@@ -46,9 +44,8 @@ const UserEdit = () => {
 
     try {
       const res = await axios.post(`/users/${id}`, user);
-      //if (res.data.email) {
+
       history.push('/admin/users');
-      //}
     } catch (err) {
       console.log(err);
     }

@@ -20,15 +20,12 @@ const Login = () => {
 
     try {
       const response = await axios.post('/auth/login', userData);
-      console.log('react auth login', response.data);
+
       if (response.data.email) {
-        console.log(response.data);
         dispatch(update(response.data));
         history.push('/');
       } else {
-        console.log('err', response.data.err);
         setError(response.data.err);
-        //setError('Incorrect username or password');
       }
     } catch (err) {
       console.log(err);

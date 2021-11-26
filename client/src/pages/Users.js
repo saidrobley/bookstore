@@ -15,7 +15,7 @@ const Users = () => {
   const getAllUsers = async () => {
     try {
       const response = await axios.get('/users');
-      console.log('response', response.data);
+
       setUsers(response.data);
     } catch (err) {
       console.log(err);
@@ -46,10 +46,9 @@ const Users = () => {
     },
   ];
   const handleDelete = async (id) => {
-    setUsers(users.filter((item) => item.id != id));
+    setUsers(users.filter((item) => item.id !== id));
     try {
-      const res = await axios.delete(`/users/${id}`);
-      console.log(res.data);
+      await axios.delete(`/users/${id}`);
     } catch (err) {
       console.log(err);
     }

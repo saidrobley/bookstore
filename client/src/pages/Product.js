@@ -19,7 +19,7 @@ const Product = () => {
     const getProduct = async () => {
       try {
         const response = await axios.get(`/products/${id}`);
-        console.log('response', response.data);
+
         setProduct(response.data);
       } catch {}
     };
@@ -35,12 +35,9 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    console.log('before adding to cart', cart);
-    console.log('product: ', product, 'quantity', quantity);
     dispatch(
       addProduct({ ...product, quantity, price: product.price * quantity })
     );
-    console.log('after adding to cart', cart);
   };
 
   return (
@@ -65,15 +62,6 @@ const Product = () => {
         </InfoContainer>
       </Wrapper>
     </Container>
-
-    // <ProductItem>
-    //   <p>{product.name}</p>
-
-    //   <img alt={product.name} src={product.image_url} />
-
-    //   <p>{product.description}</p>
-    //   <p>${product.price}</p>
-    // </ProductItem>
   );
 };
 

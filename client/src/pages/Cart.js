@@ -19,7 +19,6 @@ const Cart = () => {
     const makeRequest = async () => {
       try {
         const res = await axios.post('/checkout/payment', {
-          //const res = await axios.post('/self/checkout', {
           tokenId: stripeToken.id,
           amount: 500,
         });
