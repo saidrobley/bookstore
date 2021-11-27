@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/', checkAuthentication, async (req, res) => {
+router.post('/', async (req, res) => {
   const newOrder = req.body;
 
   try {

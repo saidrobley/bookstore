@@ -46,22 +46,26 @@ const Success = () => {
   return (
     <div>
       <Navbar />
-
-      <div>
-        <p>Success</p>
-        <p>Order Number: {order.id}</p>
-        <p>Total: ${order.total}</p>
-        <p>userId: {order?.userid}</p>
-        {order.items?.map((item) => (
+      {order.items && (
+        <div>
           <div>
-            <p>================</p>
-            <p>Title: {item.name}</p>
-            <p>Price: {item.price}</p>
-            <p>Quantity: {item.qty}</p>
-            <p>=========================</p>
+            <p>Success</p>
+            <p>Order Number: {order.id}</p>
+            <p>Total: ${order.total}</p>
+            <p>userId: {order?.userid}</p>
           </div>
-        ))}
-      </div>
+
+          {order.items?.map((item) => (
+            <div>
+              <p>================</p>
+              <p>Title: {item.name}</p>
+              <p>Price: {item.price}</p>
+              <p>Quantity: {item.qty}</p>
+              <p>=========================</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

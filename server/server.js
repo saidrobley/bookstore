@@ -56,9 +56,7 @@ passport.deserializeUser((id, done) => {
 // Configure local strategy to be use for local login
 passport.use(
   new LocalStrategy(async (username, password, done) => {
-    console.log('inside ... here ...');
     try {
-      console.log('username...', username);
       const user = await AuthServiceInstance.login({
         email: username,
         password,

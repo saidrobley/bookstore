@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 import StripeCheckout from 'react-stripe-checkout';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const KEY = process.env.REACT_APP_STRIPE;
@@ -39,12 +40,27 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <Link to="/">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
           <TopTexts>
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          {cart.products.length > 0 && (
+            <StripeCheckout
+              name="Arabsiyo Shop"
+              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <TopButton type="filled">CHECKOUT NOW</TopButton>
+            </StripeCheckout>
+          )}
         </Top>
         <Bottom>
           <Info>
@@ -93,18 +109,20 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <StripeCheckout
-              name="Arabsiyo Shop"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
-              billingAddress
-              shippingAddress
-              description={`Your total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-            >
-              <Button>CHECKOUT NOW</Button>
-            </StripeCheckout>
+            {cart.products.length > 0 && (
+              <StripeCheckout
+                name="Arabsiyo Shop"
+                image="https://avatars.githubusercontent.com/u/1486366?v=4"
+                billingAddress
+                shippingAddress
+                description={`Your total is $${cart.total}`}
+                amount={cart.total * 100}
+                token={onToken}
+                stripeKey={KEY}
+              >
+                <Button>CHECKOUT NOW</Button>
+              </StripeCheckout>
+            )}
           </Summary>
         </Bottom>
       </Wrapper>

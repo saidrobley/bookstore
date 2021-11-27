@@ -83,6 +83,9 @@ const Wrapper = styled.div`
 
 const ImgContainer = styled.div`
   flex: 1;
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const Image = styled.img`
@@ -99,8 +102,8 @@ const InfoContainer = styled.div`
   height: 60vh;
 `;
 
-const Title = styled.h1`
-  font-weight: 200;
+const Title = styled.h3`
+  font-weight: 400;
   margin: 0;
   padding: 0;
 `;
@@ -147,5 +150,8 @@ const Button = styled.button`
   margin-top: 2rem;
   &:hover {
     background-color: #f8f4f4;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
