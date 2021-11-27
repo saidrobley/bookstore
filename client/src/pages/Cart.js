@@ -46,14 +46,24 @@ const Cart = () => {
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
           <TopTexts>
-            <TopText>Shopping Bag({cart.products.length})</TopText>
+            <StripeCheckout
+              name="Arabsiyo Shop"
+              image={process.env.REACT_APP_STRIPE_AVATAR}
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <TopText>Shopping Bag({cart.products.length})</TopText>
+            </StripeCheckout>
+
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           {cart.products.length > 0 && (
             <StripeCheckout
               name="Arabsiyo Shop"
-              // image="https://avatars.githubusercontent.com/u/1486366?v=4"
-              //image="https://avatars.githubusercontent.com/u/12665751?v=4"
               image={process.env.REACT_APP_STRIPE_AVATAR}
               billingAddress
               shippingAddress
@@ -116,7 +126,7 @@ const Cart = () => {
             {cart.products.length > 0 && (
               <StripeCheckout
                 name="Arabsiyo Shop"
-                image="https://avatars.githubusercontent.com/u/1486366?v=4"
+                image={STRIPE_AVATAR}
                 billingAddress
                 shippingAddress
                 description={`Your total is $${cart.total}`}
@@ -247,11 +257,13 @@ const Summary = styled.div`
   border: 0.5px solid lightgray;
   border-radius: 10px;
   padding: 20px;
-  height: 50vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
-const SummaryTitle = styled.h1`
-  font-weight: 200;
+const SummaryTitle = styled.h3`
+  font-weight: 500;
 `;
 
 const SummaryItem = styled.div`
