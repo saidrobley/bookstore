@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const KEY = process.env.REACT_APP_STRIPE;
+  const STRIPE_AVATAR = process.env.REACT_APP_STRIPE_AVATAR;
   const history = useHistory();
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
@@ -33,6 +34,7 @@ const Cart = () => {
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, history]);
+  console.log('imag', STRIPE_AVATAR);
   return (
     <Container>
       <Navbar />
@@ -44,13 +46,15 @@ const Cart = () => {
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
+            <TopText>Shopping Bag({cart.products.length})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           {cart.products.length > 0 && (
             <StripeCheckout
               name="Arabsiyo Shop"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              // image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              //image="https://avatars.githubusercontent.com/u/12665751?v=4"
+              image={process.env.REACT_APP_STRIPE_AVATAR}
               billingAddress
               shippingAddress
               description={`Your total is $${cart.total}`}
